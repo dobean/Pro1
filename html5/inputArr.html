@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script>
+        var nameArr = new Array();
+        var colorArr = new Array();
+        function addRow(){
+            var tab = document.getElementById("dataTab");
+            var newRow = tab.insertRow();
+            var newCell1 = newRow.insertCell();
+            var newCell2 = newRow.insertCell();
+            var newCell3 = newRow.insertCell();
+            var newCell4 = newRow.insertCell();
+            newCell1.innerHTML = "<input type='text' name='dname' id='dname'' />";
+            newCell2.innerHTML = "<input type='color' name='dcolor' id='dcolor' />";
+            newCell3.innerHTML = "<input type='button' value='添加' onclick='addRow()' />";
+            newCell4.innerHTML = "<input type='button' value='删除' onclick='delRow()'/>";
+        }
+        function delRow(){
+            if(event.target.parentElement.parentElement.nodeName=="TR" || event.target.parentElement.parentElement.nodeName=="tr"){
+                event.target.parentElement.parentElement.remove();
+            }
+        }
+        function addData() {
+            nameArr = document.getElementsByName("dname");
+            colorArr = document.getElementsByName("dcolor");
+            var txtTmp = document.getElementById("titleShow").value+"#";
+            for(var i =0;i<nameArr.length;i++){
+                txtTmp = txtTmp+nameArr[i].value+"#"+colorArr[i].value+"\r\n";
+            }
+            document.getElementById("cxt").innerHTML=txtTmp;
+        }
+    </script>
+
+    <title>往数组中输入数据</title>
+
+</head>
+<body>
+    <div id="diyData">
+        <table id="dataTab">
+            <tr>
+                <td colspan="4">请输入标题：<input type="text" name="titleShow" id="titleShow" /></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="dname" id="dname" /></td>
+                <td><input type="color" name="dcolor" id="dcolor" /></td>
+                <td><input type="button" value="添加" onclick="addRow()"/></td>
+                <td>
+                    <!--<input type="button" value="删除" onclick="delRow()"/>-->
+                </td>
+            </tr>
+        </table>
+        <input type="button" value="确认" onclick="addData()" />
+        <div id="cxt" style="width: 300px;height: 300px;"></div>
+    </div>
+</body>
+</html>

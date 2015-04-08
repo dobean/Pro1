@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <style>
+        #diyData{
+            width:300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #app-main{
+            width:600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cvsstyle{
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        var cxt = null;
+        var time = 0;
+        var v = 1;
+        var a = 0.1;
+        var run = null;
+        var isA =true;
+        var nameArr = new Array();
+        var colorArr = new Array();
+        var titleshows = "";
+        // x,y 为圆心
+        // radius半径
+        // jd 扇形角度
+        // pd 顺时针偏移的角度
+        // color 扇形填充的颜色
+        function drawSx(x,y,radius,jd,pd,color,textshow) {
+            cxt.save();
+            cxt.lineWidth = 2;
+            cxt.fillStyle = color;
+            cxt.strokeStyle = "#000";
+            cxt.translate(x,y);
+            cxt.rotate((pd+a*time*time/5)*Math.PI/180);
+            cxt.beginPath();
+            cxt.moveTo(0,0);
+            cxt.arc(0,0,radius,0,jd*Math.PI/180,false);
+            cxt.closePath();
+            cxt.stroke();
+            cxt.fill();
+            cxt.save();
+            cxt.rotate((jd/2)*Math.PI/180);
+            cxt.font="20px 宋体";
+            cxt.fillStyle = "#000";
+            cxt.fillText(textshow,50,0);
+            cxt.restore();
+            cxt.restore();
+        }
+        //画指针
+        function drawPoint(){
+            cxt.beginPath();
+            cxt.lineWidth = 5;
+            var pointColor = cxt.createLinearGradient(300,300,300,150);
+            pointColor.addColorStop(0,"#ccc");
+            pointColor.addColorStop(1,"#fff");
+            cxt.strokeStyle = pointColor;
+            cxt.moveTo(300,300);
+            cxt.lineTo(300,150);
+            cxt.stroke();
+            cxt.closePath();
+            cxt.beginPath();
+            cxt.arc(300,300,10,0,Math.PI*2,false);
+            var centerColor = cxt.createRadialGradient(300,300,0,300,300,10);
+            centerColor.addColorStop(0,"#fff");
+            centerColor.addColorStop(1,"#ccc");
+            cxt.fillStyle = centerColor;
+            cxt.fill();
+            cxt.closePath();
+        }
+        function drawTitle(){
+            cxt.beginPath();
+            cxt.font="35px 宋体";
+            var textColor = cxt.createLinearGradient(0,0,600,0);
+            textColor.addColorStop("0","magenta");
+            textColor.addColorStop("0.5","blue");
+            textColor.addColorStop("1.0","red");
+            cxt.fillStyle = textColor;
+            cxt.fillText(textshows,180,80);
+            cxt.closePath();
+        }
+        function drawAll(){
+            cxt.clearRect(0,0,600,600);
+//            var egg = parseInt(360/nameArr.length);
+            var egg = 360/nameArr.length;
+            for(var i=0;i<nameArr.length;i++){
+                drawSx(300,300,200,egg,i*egg,colorArr[i].value,nameArr[i].value);
+            }
+            time ++;
+            drawPoint();
+            drawTitle();
+        }
+
+        function btnHandle(){
+            if(isA){
+                run = setInterval(drawAll,10);
+                isA = false;
+            }else{
+                isA = true;
+                clearInterval(run);
+            }
+        }
+
+        function addRow(){
+            var tab = document.getElementById("dataTab");
+            var newRow = tab.insertRow();
+            var newCell1 = newRow.insertCell();
+            var newCell2 = newRow.insertCell();
+            var newCell3 = newRow.insertCell();
+            var newCell4 = newRow.insertCell();
+            newCell1.innerHTML = "<input type='text' name='dname' id='dname'' />";
+            newCell2.innerHTML = "<input type='color' name='dcolor' id='dcolor' />";
+            newCell3.innerHTML = "<input type='button' value='添加' onclick='addRow()' />";
+            newCell4.innerHTML = "<input type='button' value='删除' onclick='delRow()'/>";
+        }
+        function delRow(){
+            if(event.target.parentElement.parentElement.nodeName=="TR" || event.target.parentElement.parentElement.nodeName=="tr"){
+                event.target.parentElement.parentElement.remove();
+            }
+        }
+        function addData() {
+            nameArr = document.getElementsByName("dname");
+            colorArr = document.getElementsByName("dcolor");
+            textshows = document.getElementById("titleShow").value;
+            document.getElementById("diyData").style.display = "none";
+            document.getElementById("app-main").style.display = "";
+            cxt = document.getElementById("cvs").getContext("2d");
+            drawAll();
+			//btnHandle();
+        }
+
+        window.onload=function(){
+            document.getElementById("app-main").style.display = "none";
+        }
+    </script>
+    <title>命运选择器</title>
+
+</head>
+<body>
+<div>
+<div id="diyData">
+    <table id="dataTab">
+        <tr>
+            <td colspan="4">请输入标题：<input type="text" name="titleShow" id="titleShow" /></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="dname" id="dname" /></td>
+            <td><input type="color" name="dcolor" id="dcolor" /></td>
+            <td><input type="button" value="添加" onclick="addRow()"/></td>
+            <td>
+                <!--<input type="button" value="删除" onclick="delRow()"/>-->
+            </td>
+        </tr>
+    </table>
+    <input type="button" value="确认" onclick="addData()" />
+</div>
+<div id="app-main">
+    <canvas id="cvs" width="600px" height="600px" onclick="btnHandle()" class="cvsstyle">浏览器不支持哦</canvas>
+</div>
+</div>
+<hr>
+<div>
+    <div id="cxt" style="width: 300px;height: 300px;margin-left: auto;margin-right: auto;">
+        使用方法：Just do it !
+    </div>
+</div>
+
+</body>
+</html>

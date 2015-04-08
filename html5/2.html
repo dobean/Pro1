@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+	
+</style>
+<title>音视频</title>
+</head>
+<body>
+<video src="../media/movie.mp4" controls="controls" id="vo">浏览器不支持video哦</video>
+<button onclick="bf();">播放</button>
+<button onclick="zt();">暂停</button>
+<button onclick="kj();">快进</button>
+<button onclick="jy(this);">静音</button>
+<button onclick="js();">加速播放</button>
+<button onclick="tgsy();">调高声音</button>
+
+
+<script>
+	var vo = document.getElementById("vo");
+	function bf(){
+		vo.play();
+	}
+	function zt(){
+		vo.pause();
+	}
+	function kj(){
+		vo.currentTime+=10; //快进10秒
+	}
+	function jy(obj){
+		if(vo.muted){
+			vo.muted =false;
+			obj.innerHTML="静音";
+		}else{
+			vo.muted =true;
+			obj.innerHTML="吱声";
+		}
+	}
+	function js(){
+		//速度加倍。如需减速则设置速度为 1/2 正常倍速则设置为1
+		vo.playbackRate=2;
+	}
+	function tgsy(){
+		//声音值的范围是 0-1
+		vo.volume+=0.2;
+	}
+</script>
+<hr />
+<video controls="controls" height="400" width="400" poster="../media/null.jpg">
+<source src="../media/movie.mp4" type="video/mp4" />
+<source src="../media/movie.ogg" type="video/ogg" />
+升级你的浏览器
+</video>
+<hr />
+音频标签 audio
+<audio src="../media/gem.mp3" controls="controls" id="ao">浏览器不支持</audio>
+<button onclick="bfao();">播放</button>
+<button onclick="ztao();">暂停</button>
+<script>
+	var ao = document.getElementById("ao");
+	function bfao(){
+		ao.play();
+	}
+	function ztao(){
+		ao.pause();
+	}
+</script>
+</body>
+</html>

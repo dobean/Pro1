@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+		/** 所有的html5结构标签本质上是div,只是有意义了*/
+		/** 页面头部 header*/
+		header{height:150px;background:#ABCBEF}
+		nav{height:30px;background:#ff9900;margin-top:100px}
+		nav ul li{width:100px;height:30px;float:left;line-height:30px}
+		/** 页面中间区域 div*/
+		div{height:1200px;margin-top:20px}
+		section{height:1200px;background:#ABCDEF;width:70%;float:left}
+		/** margin:0 auto; 居中 */
+		article{background:#ff9900;width:500px;margin:0 auto;text-align:center}
+		aside{height:1200px;background:#ABCDEF;width:28%;float:right}
+		/** 页面底部 footer*/
+		footer{height:100px;background:#ABCDEF;clear:both;margin-top:10px}
+		</style>
+	<title>结构标签</title>
+	</head>
+	<body>
+		<!-- 头标签，页面的头部 -->
+		<header>
+			<p>这是header标签</p>
+			<nav>
+				<ul>
+					<li>首页</li>
+					<li>企业</li>
+					<li>论坛</li>
+					<li>商城</li>
+					<li>社区</li>
+				</ul>
+			</nav>
+		</header>
+		<!-- 页面中间主体，分左右两边 -->
+		<div>
+			<!-- 页面主体 -->
+			<section>
+				<p>这是section标签</p>
+				<!-- 文章块 -->
+				<article>
+					<h2>关雎</h2>
+					<p>关关雎鸠，<br/></p>
+					<p>在河之洲。<br/></p>
+					<p>窈窕淑女，<br/></p>
+					<p>君子好逑。<br/></p>
+				</article>
+				<hr />
+				<article>
+					<h2>雨霖铃</h2>
+					<p>此去经年，<br/></p>
+					<p>应是良辰好景虚设。<br/></p>
+					<p>便纵有千种风情，<br/></p>
+					<p>更与何人说？<br/></p>
+				</article>
+				<hr/>
+				<figure>
+					<figcaption>标题 figcaption</figcaption>
+					<p>详细描述 p</p>
+				</figure>
+				<figure>
+					<dt>标题 dt</dt>
+					<dd>详细描述 dd</dd>
+				</figure>
+				<hr />
+				<dialog>
+					<dt>dialog标签中的dt</dt>
+					<dd>dialog标签中的dd</dd>
+					<dt>1.这是问题1？</dt>
+					<dd>这是回答1。</dd>
+					<dt>2.这是问题2？</dt>
+					<dd>这是回答2。</dd>
+				</dialog>
+				<hr />
+				<menu>
+					<li>这是menu菜单</li>
+					<li>目前只有ff支持</li>
+				</menu>
+				<hr />
+				<span contextmenu="cd">右击试试(只有ff支持)</span>
+				<menu type="context" id="cd">
+					<menuitem label="菜单一" onclick="alert('爱国，爱党，爱人民')" icon="http://online.sccnn.com/img2/5138/01.png"></menuitem>
+				</menu>
+				<hr>
+				<meter min="0" max="10" high="9" low="3" optimum="low" value="6"></meter>这是meter标签，ie不支持<br />
+				<progress max="100" value="0" id="pro"></progress>
+				<script>
+					var pro = document.getElementById('pro');
+					var timer1 = setInterval(function(){
+					if(pro.value<pro.max){
+						pro.value++;
+					}else{
+						clearInterval(timer1);
+						//alert('已到最大值')
+					}
+					},1000);
+				</script>
+				<hr />
+				<details>
+					<dt>1.这个details标签ff似乎不支持</dt>
+					<dd>to be or not to be</dd>
+					<dt>2.这个details标签ie似乎不支持</dt>
+					<dd>to be or not to be</dd>
+				</details>
+				<hr />
+				<ruby>巭<rt>pu,bu<rt></ruby><span style="color:red"> ruby和rt标签，ff和opera不支持</span><br>
+				<ruby>巭<rp>(</rp><rt>pu,bu<rt><rp>)</rp></ruby><span style="color:red"> 使用括号和rp标签解决这个问题</span>
+				<hr />
+				这个是mark标签的作用<mark>重点标识</mark>出内容。
+				<hr />
+			</section>
+			<!-- 侧边 -->
+			<aside>
+				<p>这是aside标签，使用float属性定位在右边</p>
+				<hgroup>
+					<h3>第一个</h3>
+					<h3>第二个</h3>
+					<h3>第三个</h3>
+					<h3>第四个</h3>
+				</hgroup>
+			</aside>
+		</div>
+		<!-- 页面底部 -->
+		<footer>
+			<p>这是footer标签</p>
+			<hr />
+			<small>法律条文</small>
+			<small>联系我们</small>
+			<small>客户意见</small>
+			<small>商户合作</small>
+		</footer>
+	<body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>杀猪刀</title>
+    <style type="text/css" rel="stylesheet">
+        .clkmain {
+            margin-left: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="clkmain">
+    <canvas id="clock" width="600px" height="600px">浏览器不支持哦</canvas>
+    <script>
+        function drawClk() {
+
+            var clk = document.getElementById("clock");
+            var cxt = clk.getContext("2d");
+
+            cxt.clearRect(0,0,600,600);
+            //表盘颜色
+            var clkcolor = "#f0f";
+            //刻度颜色
+            var kdcolor = "#f00";
+            //时针颜色
+            var hourColor = "#0f0";
+            //分针颜色
+            var minColor = "#ff0";
+            //秒针颜色
+            var secColor = "#f00";
+
+            var centerColor = "#0ff";
+
+            var textColor = "#f00"
+            var textshow = "时间是一把杀猪刀，也是一把饲料";
+            //时间数据获取
+            var now = new Date();
+            var sec = now.getSeconds();
+            if(sec%2==0) {
+                clkcolor = "#fff";
+                kdcolor = "#0f0";
+                hourColor = "#f0f";
+                secColor = "#0ff";
+                centerColor = "#fff";
+                minColor = "#abcdef";
+            }
+            var min = now.getMinutes();
+            var hour = now.getHours();
+            hour = hour > 12 ? hour - 12 : hour;
+            hour = hour + min / 60;
+            //背景图片
+            var img = new Image();
+            img.src = "../media/pp.png";
+            cxt.drawImage(img,80,0,227*2,277*2);
+            //表盘
+            cxt.beginPath();
+            cxt.lineWidth = 10;
+            cxt.strokeStyle = clkcolor;
+            cxt.arc(300, 300, 200, 0, 360, false);
+            cxt.stroke();
+            cxt.closePath();
+            //刻度
+            //时刻度
+            for (var i = 0; i < 12; i++) {
+                cxt.save();
+                cxt.translate(300, 300);
+                cxt.rotate(i * 30 * Math.PI / 180);
+                cxt.beginPath();
+                cxt.lineWidth = 7;
+                cxt.strokeStyle = kdcolor;
+                cxt.moveTo(0, -190);
+                cxt.lineTo(0, -160);
+                cxt.stroke();
+                cxt.closePath();
+                cxt.restore();
+            }
+            //分刻度
+            for (var i = 0; i < 60; i++) {
+                cxt.save();
+                cxt.translate(300, 300);
+                cxt.rotate(i * 6 * Math.PI / 180);
+                cxt.beginPath();
+                cxt.lineWidth = 3;
+                cxt.strokeStyle = kdcolor;
+                cxt.moveTo(0, -190);
+                cxt.lineTo(0, -170);
+                cxt.stroke();
+                cxt.closePath();
+                cxt.restore();
+            }
+
+            //时针
+            cxt.save();
+            cxt.translate(300, 300);
+            cxt.rotate(hour * 30 * Math.PI / 180);
+            cxt.beginPath();
+            cxt.lineWidth = 7;
+            cxt.strokeStyle = hourColor;
+            cxt.moveTo(0, 10);
+            cxt.lineTo(0, -80);
+            cxt.stroke();
+            cxt.closePath();
+            cxt.restore();
+            //分针
+            cxt.save();
+            cxt.translate(300, 300);
+            cxt.rotate(min * 6 * Math.PI / 180);
+            cxt.beginPath();
+            cxt.lineWidth = 5;
+            cxt.strokeStyle = minColor;
+            cxt.moveTo(0, 15);
+            cxt.lineTo(0, -100);
+            cxt.stroke();
+            cxt.closePath();
+            cxt.restore();
+            //秒针
+            cxt.save();
+            cxt.translate(300, 300);
+            cxt.rotate(sec * 6 * Math.PI / 180);
+            cxt.beginPath();
+            cxt.lineWidth = 3;
+            cxt.strokeStyle = secColor;
+            cxt.moveTo(0, 20);
+            cxt.lineTo(0, -140);
+            cxt.stroke();
+            cxt.closePath();
+            cxt.restore();
+            //圆心
+            cxt.beginPath();
+            cxt.arc(300, 300, 5, 0, 360, false);
+            cxt.fillStyle = centerColor;
+            cxt.strokeStyle = secColor;
+            cxt.lineWidth = 3;
+            cxt.fill();
+            cxt.stroke();
+            cxt.closePath();
+
+            //警句
+            cxt.lineWidth =1;
+            cxt.font="40px 宋体";
+            cxt.strokeStyle=textColor;
+            cxt.strokeText(textshow,0,80);
+        }
+        drawClk();
+        setInterval(drawClk,1000);
+
+    </script>
+    <div>
+
+</body>
+</html>

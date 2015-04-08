@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+<body>
+    <div>
+        <header>智能表单</header>
+
+        <form id="register" method="post" action="#">
+        </form>
+        邮箱：<input type="email" name="youxiang" id="youxiang" form="register" /><br>
+        date:<input type="date" name="riqi" form="register" value="" /> 谷歌浏览器可以使用<br>
+        time:<input type="datetime" name="shijian" form="register" value="" /> 只有opera支持<br>
+        滑动条 range:<input type="range" name="huadongtiao" value="" max="5" /> <br>
+        搜索框 search:<input type="search" name="sousuo" value="" form="register" /> <br>
+        颜色 color:<input type="color" name="yanse" value="" form="register" /> <br>
+        <input type="submit" value="提交" form="register" ><hr>
+        自动填充表单：<input type="text" id="autoFill" list="dataList"/>
+        <datalist id="dataList">
+            <option>123</option>
+            <option>345</option>
+            <option>678</option>
+        </datalist>
+        <hr>
+        输出标签output :
+        <form id="outi" action="#" method="post" oninput="ret.value = parseInt(no1.value)*parseInt(no2.value)">
+            <input type="number" id="no1" />
+            <input type="number" id="no2" />
+            <output id="ret" />
+        </form>
+    </div>
+</body>
+</html>

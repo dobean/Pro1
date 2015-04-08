@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>时钟</title>
+    <style type="text/css" rel="stylesheet">
+        .app-main {
+            margin-left: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="app-main">
+    <canvas id="clock" width="600px" height="600px"></canvas>
+</div>
+<script>
+    var cl = document.getElementById("clock");
+    var cxt = cl.getContext("2d");
+
+    function drawClock() {
+        //清除画布
+        cxt.clearRect(0,0,600,600);
+        var now = new Date();
+        var sec = now.getSeconds();
+        var min = now.getMinutes();
+        var hour = now.getHours();
+        //需要将24小时进制转换为12小时进制
+        hour = hour > 12 ? hour - 12 : hour;
+        //小时必须获取浮点类型(小时+分转换的小时)
+        hour = hour + min/60;
+        //背景图片
+        var img = new Image();
+        img.src = "../media/pp.png";
+        cxt.drawImage(img,80,0,227*2,277*2);
+        //表盘 （蓝色）
+        cxt.beginPath();
+        cxt.strokeStyle = "#ff00ff";
+        cxt.lineWidth = 10;
+        cxt.arc(300, 300, 200, 0, 360, false);
+        cxt.stroke();
+        cxt.closePath();
+        //刻度
+        //时刻度
+        for (var i = 0; i < 12; i++) {
+            cxt.save();
+            cxt.lineWidth = 8;
+            cxt.strokeStyle = "#000";
+            cxt.translate(300, 300); //设置旋转点
+            cxt.rotate(i * 30 * Math.PI / 180); //弧度 = 角度*Math.PI/180
+            cxt.beginPath();
+            cxt.moveTo(0, -150);
+            cxt.lineTo(0, -180);
+            cxt.stroke();
+            cxt.closePath();
+            cxt.restore();
+        }
+        //分刻度
+        for (var i = 0; i < 60; i++) {
+            cxt.save();
+            cxt.lineWidth = 3;
+            cxt.strokeStyle = "#000";
+            cxt.translate(300, 300); //设置旋转点
+            cxt.rotate(i * 6 * Math.PI / 180); //弧度 = 角度*Math.PI/180
+            cxt.beginPath();
+            cxt.moveTo(0, -165);
+            cxt.lineTo(0, -180);
+            cxt.stroke();
+            cxt.closePath();
+            cxt.restore();
+        }
+        //时针
+        cxt.save();
+        cxt.lineWidth = 8;
+        cxt.strokeStyle = "#fff";
+        cxt.translate(300, 300);
+        cxt.rotate(hour*30* Math.PI / 180);
+        cxt.beginPath();
+        cxt.moveTo(0, 20);
+        cxt.lineTo(0, -80);
+        cxt.stroke();
+        cxt.closePath();
+        cxt.restore();
+        //分针
+        cxt.save();
+        cxt.lineWidth = 5;
+        cxt.strokeStyle = "#fff";
+        cxt.translate(300, 300);
+        cxt.rotate(min*6* Math.PI / 180);
+        cxt.beginPath();
+        cxt.moveTo(0, 25);
+        cxt.lineTo(0, -110);
+        cxt.stroke();
+        cxt.closePath();
+        cxt.restore();
+        //秒针
+        cxt.save();
+        cxt.lineWidth = 5;
+        cxt.strokeStyle = "#f00";
+        cxt.translate(300, 300);
+        cxt.rotate(sec*6* Math.PI / 180);
+        cxt.beginPath();
+        cxt.moveTo(0, 30);
+        cxt.lineTo(0, -140);
+        cxt.stroke();
+        cxt.closePath();
+        //圆心点
+        cxt.beginPath();
+        cxt.arc(0,0,5,0,360,false);
+        cxt.fillStyle="gray";
+        cxt.fill();
+        cxt.strokeStyle="#f00";
+        cxt.stroke();
+        cxt.closePath();
+        // 秒针前面的圆
+        cxt.beginPath();
+        cxt.arc(0,-110,5,0,360,false);
+        cxt.fillStyle="gray";
+        cxt.fill();
+        cxt.strokeStyle="#f00";
+        cxt.stroke();
+        cxt.closePath();
+
+        cxt.restore();
+    }
+    //防止加载延迟的一秒
+    drawClock();
+    //使用 setInterVal()让时针动起来
+    setInterval(drawClock,1000);
+</script>
+</body>
+</html>

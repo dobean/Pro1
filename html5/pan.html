@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <style rel="stylesheet" type="text/css">
+        .cxtMain{
+            margin-left: 300px;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+<canvas id="cs" width="600px" height="600px" class="cxtMain">浏览器不支持哦</canvas>
+<script>
+    var cxt = document.getElementById("cs").getContext("2d");
+
+//    cxt.beginPath();
+//    cxt.lineWidth = 3;
+//    cxt.strokeStyle = "#f90";
+//    cxt.arc(300,300,200,0,360,false);
+//    cxt.stroke();
+//    cxt.closePath();
+
+    cxt.beginPath();
+    cxt.arc(300,300,200,0,0.5*Math.PI,false);
+    cxt.moveTo(300,300);
+    cxt.lineTo(300,500);
+//    cxt.fillStyle="#ff0";
+//    cxt.fill();
+    cxt.stroke();
+    cxt.closePath();
+</script>
+</body>
+</html>

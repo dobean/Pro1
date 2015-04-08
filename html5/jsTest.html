@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>js测试</title>
+    <script>
+        // 读取函数内部的变量
+        function f1(){
+            var f1var = 123;
+            function f11(){
+                alert(f1var);
+            }
+            return f11;
+        }
+
+        var retfun = f1();
+        retfun();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

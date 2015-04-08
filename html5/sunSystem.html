@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>太阳系</title>
+</head>
+<body>
+<canvas id="sun" width="1000px" height="1000" style="background: #000">浏览器不支持哦</canvas>
+<script>
+
+    var cxt = document.getElementById("sun").getContext("2d");
+
+    function drawPath(){
+        for(var i=0;i<8;i++){
+            cxt.beginPath();
+            cxt.lineWidth = 2;
+            cxt.strokeStyle = "#fff";
+            cxt.arc(500,500,(i+1)*50,0,360,false);
+            cxt.stroke();
+            cxt.closePath();
+        }
+    }
+    drawPath();
+
+    //星球对像
+    function Star(x,y,r,c,sc,ec){
+        //属性：
+        // 坐标
+        this.x = x;
+        this.y =y;
+        // 半径
+        this.r = r;
+        // 公转周期
+        this.c = c;
+        // 颜色：开始色和结束色
+        this.sc = sc;
+        this.ec = ec;
+        //创建渐变颜色空对象
+        this.color = null;
+        //设置一个计时器
+        this.time = 0;
+        this.draw=function(){
+            cxt.save();
+            cxt.translate(500,500);
+            cxt.rotate(this.time*360/this.c* Math.PI / 180);
+            cxt.beginPath();
+            cxt.arc(this.x,this.y,this.r,0,360,false);
+            this.color = cxt.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r);
+            this.color.addColorStop(0,this.sc);
+            this.color.addColorStop(1,this.ec);
+            cxt.fillStyle = this.color;
+            cxt.fill();
+            cxt.closePath();
+            cxt.restore();
+            this.time +=1;
+        }
+    }
+    function Sun(){
+        Star.call(this,0,0,20,0,"#F00","#F90");
+    }
+    function Shui(){
+        Star.call(this,0,-50,10,87,"#A69697","#5C3E40");
+    }
+    function Jin(){
+        Star.call(this,0,-100,10,224,"#C4BBAC","#1F1315");
+    }
+    function Di(){
+        Star.call(this,0,-150,10,365,"#78B1E8","#050C12");
+    }
+    function Huo(){
+        Star.call(this,0,-200,10,687,"#CEC9B6","#76422D");
+    }
+    function Mu(){
+        Star.call(this,0,-250,10,4332,"#C0A48E","#322222");
+    }
+    function Tu(){
+        Star.call(this,0,-300,10,10759,"#F7F9E3","#5C4533");
+    }
+    function Tian(){
+        Star.call(this,0,-350,10,30799,"#A7E1E5","#19243A");
+    }
+    function Hai(){
+        Star.call(this,0,-400,10,60152,"#0661B2","#1E3B73");
+    }
+    var sun = new Sun();
+    var shui = new Shui();
+    var jin = new Jin();
+    var di = new Di();
+    var huo = new Huo();
+    var mu = new Mu();
+    var tu = new Tu();
+    var tian = new Tian();
+    var hai = new Hai();
+    function move(){
+        cxt.clearRect(0,0,1000,1000);
+        drawPath();
+        sun.draw();
+        shui.draw();
+        jin.draw();
+        di.draw();
+        huo.draw();
+        mu.draw();
+        tu.draw();
+        tian.draw();
+        hai.draw();
+    }
+    move();
+    setInterval(move,10);
+
+</script>
+
+</body>
+</html>
